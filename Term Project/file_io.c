@@ -19,7 +19,7 @@ Student* loadFromFile(char* filename){
     float score;
 
     while(fscanf(fp, "%s %s %s %s %f", id, name, gender, class_name, &score) == 5){
-        Student* newNode = creatNode(id, name, gender, class_name, score);
+        Student* newNode = createNode(id, name, gender, class_name, score);
         if(head == NULL){
             head = newNode;
             tail = newNode;
@@ -35,14 +35,14 @@ Student* loadFromFile(char* filename){
 
 void saveToFile(Student* head, char* filename){
     FILE* fp = fopen(filename, "w");
-    if(head == NULL){
+    if(fp == NULL){
         printf("文件打开失败！保存失败！");
         return;
     }
     
     Student* curr = head;
     while(curr != NULL){
-        fprintf(fp, "%s %s %s %s %f\n", curr->id, curr->name, curr->gender, curr->class_name, curr->score);
+        fprintf(fp, "%s %s %s %s %.1f\n", curr->id, curr->name, curr->gender, curr->class_name, curr->score);
         curr = curr->next;
     }
 

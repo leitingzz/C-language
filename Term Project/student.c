@@ -3,7 +3,7 @@
 #include <string.h>
 #include "student.h"
 
-Student* creatNode(char* id, char* name, char* gender, char* class_name, float score){            //拷贝数据，字符串要传指针
+Student* createNode(char* id, char* name, char* gender, char* class_name, float score){            //拷贝数据，字符串要传指针
     Student* node = (Student*)malloc((sizeof(Student)));
     if(node == NULL){
         printf("内存分配失败!\n");
@@ -31,7 +31,7 @@ Student* searchStudent(Student* head, char* id){
 
 Student* addStudent(Student* head){
 
-    char* id[10], name[20], gender[4], class_name[20];
+    char id[10], name[20], gender[4], class_name[20]; 
     float score;
 
     printf("请输入学生学号：");
@@ -49,9 +49,10 @@ Student* addStudent(Student* head){
     printf("请输入学生班级：");
     scanf("%s",class_name);
     printf("请输入学生分数：");
-    scanf("%s",score);
+    scanf("%f",&score);
+    printf("添加成功！\n");
 
-    Student* node = creatNode(id, name, gender, class_name, score);
+    Student* node = createNode(id, name, gender, class_name, score);
     node->next = head;
     return node;
     
@@ -64,7 +65,7 @@ Student* deleteStudent(Student* head, char* id){
     while(curr != NULL){
         if(strcmp(curr->id, id) == 0){
             if(prev == NULL){
-                head = head->next;
+                head = curr->next;
             }else{
                 prev->next = curr->next;
             }
@@ -75,14 +76,11 @@ Student* deleteStudent(Student* head, char* id){
         prev = curr;
         curr = curr->next;
     }
-    printf("该学生信息不存在！\m");
+    printf("该学生信息不存在！\n");
     return head;
 }
 
 void updateStudent(Student* head, char* id){
-    char* id[10], name[20], gender[4], class_name[20];
-    float score;
-
     Student* node = searchStudent(head, id);
     if(node == NULL){
         printf("未找到该学生信息！\n");
@@ -100,18 +98,17 @@ void updateStudent(Student* head, char* id){
 
         printf("修改成功！\n");
     }
-
 }
 
 void printAll(Student* head){
     if(head == NULL){
         printf("当前没有学生信息！\n");
     }
-    printf("%-10s %-10s %-10s %-10s %-10s\n","学号","姓名","性别","班级","成绩");
+    printf("  %-11s %-11s %-10s %-11s %-10s\n","学号","姓名","性别","班级","成绩");
 
     Student* curr = head;
     while(curr != NULL){
-        printf("%-10s %-10s %-10s %-10s %-10f\n", curr->id, curr->name, curr->gender, curr->class_name, curr->score);
+        printf("%-11s %-12s %-6s %-14s %-8.1f\n", curr->id, curr->name, curr->gender, curr->class_name, curr->score);
         curr = curr->next;
     }
     printf("\n");

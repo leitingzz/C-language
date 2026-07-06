@@ -1,5 +1,5 @@
 #ifndef STUDENT_H           //防止文件嵌套导致重复定义
-#define STUDNET_H
+#define STUDENT_H
 
 typedef struct Student{
     char id[10];
